@@ -1,5 +1,6 @@
 import React from "react"
 
+import axios from "axios"
 import { Form, Formik } from "formik"
 
 import Container from "../UI/Container"
@@ -10,45 +11,78 @@ import Select from "./formComponents/Select"
 import TextInput from "./formComponents/TextInput"
 import RadioInput from "./formComponents/RadioInput"
 
+import { formSchema } from "./formSchema"
+
 const initialValues = {
-  team_name: "",
-  region: "",
-  full_name: "",
+  team_title: "",
+  wilaya: "",
+  fullname: "",
   email: "",
   password: "",
   phone: "",
   is_student: "",
-  function: "",
-  portfolio: "",
-  id_image: "",
-  need_auberge: "",
+  job: "",
+  linkedIn_github: "",
+  need_hosting: "",
   skills: "",
   projects: "",
   motivation: "",
+  tshirt: "",
+  id_card: "",
 }
 
+let errorMessage = ""
+
 const MainForm = (props) => {
+  const submitFormHandler = (values, { resetForm }) => {
+    let errorMessage = ""
+
+    function submitInscription(memberValues) {
+      axios
+        .post("http://api.celec-club.com/api/arc/registration", memberValues)
+        .then(function (response) {
+          console.log(response)
+          resetForm({ values: "" })
+        })
+        .catch(function (error) {
+          if (error.response.status === 422) {
+            const data = error.response.data
+            const errors = data.errors
+            for (const [key, value] of Object.entries(errors)) {
+              errorMessage += `${key}: ${value}`
+              errorMessage += "\n"
+            }
+            alert(errorMessage)
+          } else {
+            // errorMessage = "Server error please try again"
+            alert("Server error please try again")
+          }
+        })
+    }
+    submitInscription(values)
+  }
+
   return (
     <Container className="my-14">
       <Formik
         initialValues={initialValues}
-        validationSchema={"trainingSchema"}
-        onSubmit={"submitFormHandler"}
+        validationSchema={formSchema}
+        onSubmit={submitFormHandler}
       >
-        {({ isSubmitting }) => (
+        {(props) => (
           <Form className="grid grid-cols-2 justify-center relative ph:grid-cols-1">
             <div className="justify-self-center">
               <Input
-                id="team_name"
+                id="team_title"
                 label="Team Name"
                 type="text"
-                name="team_name"
+                name="team_title"
               />
               <Select
-                id="region"
+                id="wilaya"
                 label="Select the state where to compete"
                 type="text"
-                name="region"
+                name="wilaya"
               >
                 <option value="">Please select your region</option>
                 <option value="Algiers">Algiers</option>
@@ -57,10 +91,10 @@ const MainForm = (props) => {
                 <option value="Ghardaïa">Ghardaïa</option>
               </Select>
               <Input
-                id="full_name"
+                id="fullname"
                 label="Full Name"
                 type="text"
-                name="full_name"
+                name="fullname"
               />
               <Input id="email" label="Email" type="email" name="email" />
               <Input
@@ -92,46 +126,61 @@ const MainForm = (props) => {
                 />
               </div>
               <Input
-                id="function"
+                id="job"
                 label="If no, please enter your function"
                 type="text"
-                name="function"
+                name="job"
               />
+              <Select
+                id="tshirt"
+                label="Select your T-shirt size"
+                type="text"
+                name="tshirt"
+              >
+                <option value="">Please select your size</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </Select>
             </div>
             <div className="justify-self-center">
               <Input
-                id="portfolio"
+                id="linkedIn_github"
                 label="Github or LinkedIn account link"
                 type="text"
-                name="portfolio"
+                name="linkedIn_github"
               />
               <Input
-                id="id_image"
+                id="id_card"
                 label="Upload your ID card image"
                 type="file"
                 accept="image/*"
-                name="id_image"
-                required
-                // onChange={handleImageInput}
+                name="id_card"
+                value={undefined}
+                onChange={(e) =>
+                  props.setFieldValue("id_card", e.target.files[0])
+                }
               />
               <p className="text-white ml-8 mb-3">
                 Do you need a place to reside?
               </p>
               <div>
                 <RadioInput
-                  id="need_auberge-true"
+                  id="need_hosting-true"
                   label="Yes"
-                  name="need_auberge"
+                  name="need_hosting"
                   value="yes"
                 />
                 <RadioInput
-                  id="need_auberge-false"
+                  id="need_hosting-false"
                   label="No"
-                  name="need_auberge"
+                  name="need_hosting"
                   value="no"
                 />
               </div>
-              <TextInput id="Skills" label="List your skills" name="Skills" />
+              <TextInput id="Skills" label="List your skills" name="skills" />
               <TextInput
                 id="projects"
                 label="List the projects you realized in the field of robotics, electronics or computer science"
@@ -144,15 +193,15 @@ const MainForm = (props) => {
               />
               <Button
                 type="submit"
-                // className="w-80 text-white bg-Color-Blue py-3 rounded-lg mt-2"
-                disabled={props.disableBtn}
-                className={
-                  props.closed
-                    ? "w-80 text-white bg-Color-Cyan py-3 rounded-lg mt-2"
-                    : "w-80 text-white bg-Color-Cyan py-3 rounded-lg mt-2"
-                }
+                className="w-80 text-white bg-Color-Cyan py-3 rounded-lg mt-2"
+                // disabled={props.disableBtn}
+                // className={
+                //   props.closed
+                //     ? "w-80 text-white bg-Color-Cyan py-3 rounded-lg mt-2"
+                //     : "w-80 text-white bg-Color-Cyan py-3 rounded-lg mt-2"
+                // }
               >
-                {props.closed ? "Registration are closed" : "Submit"}
+                Submit
               </Button>
             </div>
           </Form>
