@@ -27,8 +27,6 @@ export const formSchema = yup.object().shape({
 
   motivation: yup.string().required(),
 
-  job: yup.string().required(),
-
   tshirt: yup
     .string()
     .oneOf(["S", "M", "L", "XL", "XXL"], "Invalid T-shirt size")

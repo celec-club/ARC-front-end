@@ -15,7 +15,6 @@ const FormPortal = (props) => {
           <div className="error-pup-up relative">
             <h3>Please update those information :</h3>
             <p>{props.errorMessage}</p>
-            <Button onClick={props.closePortal}>Close</Button>
           </div>
         )}
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-// import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import axios from "axios"
 import { Form, Formik } from "formik"
 import { useParams } from "react-router-dom"
@@ -13,7 +13,40 @@ import TextInput from "./formComponents/TextInput"
 import RadioInput from "./formComponents/RadioInput"
 import FormPortal from "./FormProtal/FormPortal"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faCircleExclamation,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons"
+
 import { formSchema } from "./formSchema"
+
+const loader = (
+  <svg
+    className="inline-block ml-3"
+    width="20"
+    height="20"
+    viewBox="0 0 38 38"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke="#fff"
+  >
+    <g fill="none" fill-rule="evenodd">
+      <g transform="translate(1 1)" stroke-width="3">
+        <circle stroke-opacity=".5" cx="18" cy="18" r="18" />
+        <path d="M36 18c0-9.94-8.06-18-18-18">
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 18 18"
+            to="360 18 18"
+            dur="1s"
+            repeatCount="indefinite"
+          />
+        </path>
+      </g>
+    </g>
+  </svg>
+)
 
 const initialValues = {
   wilaya: "",
@@ -40,6 +73,7 @@ const MainForm = (props) => {
   const { registerId } = useParams()
 
   const [isNewTeam, setIsNewTeam] = useState(false)
+  const [isExistingTeam, setIsExistingTeam] = useState(true)
   const [teamRegistrationId, setTeamRegistrationId] = useState("")
   const [teamData, setTeamData] = useState({})
   const [apiInscriptionUrl, setApiInscriptionUrl] = useState("")
@@ -60,13 +94,15 @@ const MainForm = (props) => {
         .then((response) => {
           setIsNewTeam(false)
           setTeamData(response.data)
+          setIsExistingTeam(true)
           setApiInscriptionUrl(
             `http://api.celec-club.com/api/arc/registration?team_code=${registerId}`
           )
           console.log(response.data)
         })
         .catch((error) => {
-          console.log(error)
+          setIsExistingTeam(false)
+          setIsNewTeam(false)
         })
     } else {
       setIsNewTeam(true)
@@ -135,6 +171,10 @@ const MainForm = (props) => {
     submitInscription(values)
   }
 
+  if (!isExistingTeam && !isNewTeam) {
+    return <Navigate to="/NOT_FOUND" />
+  }
+
   return (
     <Container className="my-14">
       {isNewTeam && (
@@ -148,10 +188,18 @@ const MainForm = (props) => {
         />
       )}
       {isNewTeam && (
-        <p className="text-white text-xl text-center py-5">
-          Please note that when submitting the form, a link will show up and you
-          must share this link with your team to register through it
-        </p>
+        <div>
+          <div className="flex items-center justify-center">
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              className="text-Color-Cyan text-4xl tab:block"
+            />
+          </div>
+          <p className="text-white text-xl text-center p-5">
+            Please note that when submitting the form, a link will show up and
+            you must share this link with your team to register through it
+          </p>
+        </div>
       )}
       <Formik
         initialValues={initialValues}
@@ -306,6 +354,13 @@ const MainForm = (props) => {
                 // }
               >
                 Submit
+                {props.isSubmitting && loader}
+                {successRequest && (
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="text-white text-lg ml-4"
+                  />
+                )}
               </Button>
             </div>
           </Form>
