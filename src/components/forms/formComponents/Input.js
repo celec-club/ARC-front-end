@@ -10,7 +10,9 @@ const Input = ({ label, id, ...props }) => {
         {...field}
         {...props}
         // onChange={props.onChange}
-        className={meta.touched && meta.error ? "input-error" : ""}
+        className={
+          `${meta.touched && meta.error ? "input-error" : ""}` + props.className
+        }
       />
       {meta.touched && meta.error && (
         <div className="text-[#ff001a]">{meta.error}</div>

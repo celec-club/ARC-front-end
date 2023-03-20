@@ -122,4 +122,20 @@ code {
     @apply text-white text-sm bg-Color-Cyan py-1 px-2 absolute right-2 top-[50%] translate-y-[-50%] border-0 outline-0 rounded-lg cursor-pointer;
   }
   /* End Forms */
+
+  /* Form Portal */
+  .error-pup-up h3,
+  .success-pup-up h3 {
+    @apply font-bold text-lg text-Color-Dark-Blue;
+  }
+
+  .error-pup-up p,
+  .success-pup-up ul {
+    @apply p-2;
+  }
+
+  .portal button,
+  .portal button {
+    @apply bg-Color-Cyan text-white px-4 py-2 rounded-lg right-0 bottom-[-30px] ph:bottom-[-50px];
+  }
 }
