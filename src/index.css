@@ -126,7 +126,7 @@ code {
   /* Form Portal */
   .error-pup-up h3,
   .success-pup-up h3 {
-    @apply font-bold text-lg text-Color-Dark-Blue;
+    @apply font-bold text-lg text-Color-Dark-Blue ph:text-sm mb-4;
   }
 
   .error-pup-up p,
@@ -136,6 +136,6 @@ code {
 
   .portal button,
   .portal button {
-    @apply bg-Color-Cyan text-white px-4 py-2 rounded-lg right-0 bottom-[-30px] ph:bottom-[-50px];
+    @apply bg-Color-Cyan text-white px-4 py-2 rounded-lg;
   }
 }

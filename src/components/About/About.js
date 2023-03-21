@@ -2,7 +2,7 @@ import React from "react"
 
 import Container from "../UI/Container"
 
-import Map from "../../assets/Alger.png"
+import Map from "../../assets/wilaya.png"
 
 const About = () => {
   return (
@@ -26,7 +26,7 @@ const About = () => {
           qualité tout en garantissant un cadre de sécurité solide.
         </p>
       </section>
-      <section id="about">
+      <section id="about" className="">
         <h2 className="text-3xl text-Color-Cyan text-center font-bold uppercase py-10 mb-5">
           About the competition
         </h2>
@@ -36,21 +36,23 @@ const About = () => {
               Qualifications
             </h3>
             <p className="text-white text-justify max-w-4xl mx-auto">
-              La compétition est composée de deux phases principales : <br /> La
-              première phase est les qualifications pour la finale, et elle aura
-              lieu le 27 mars 2022 entre les 5 wilayas suivantes : Alger,
-              Biskra, Skikda, Sidi Bel Abbes, Ghardaia. Il s’agit d’une
-              multitude de mini challenges sous chronomètres impliquant des
-              compétences en robotique mais aussi des bases en Intelligence
-              Artificielle que les participants devront avoir pour pouvoir
-              procéder une sélection effective des finalistes.
+              The competition consists of two main phases: <br /> The first
+              phase is the qualification for the final, and will take place on
+              29 April 2023 in the 4 following wilayas : Algiers, Ghardaia, Oran
+              and Batna. It involves a multitude of mini-challenges under
+              timers, involving skills in robotics but also basics in Artificial
+              Intelligence that participants must have to make an effective
+              selection of finalists.
             </p>
           </div>
           <div>
-            <img src={Map} alt="Competition_Map" className="w-96" />
+            <img src={Map} alt="Competition_Map" className="w-[500px]" />
           </div>
         </div>
       </section>
+      <h2 className="text-3xl text-Color-Cyan text-center font-bold uppercase py-10 mb-5">
+        Feel the power of robot <span className="text-white">With arc</span>
+      </h2>
     </Container>
   )
 }

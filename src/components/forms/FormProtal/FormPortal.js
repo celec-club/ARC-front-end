@@ -1,11 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom"
 
 import Button from "../../UI/Button"
 
+import { CopyToClipboard } from "react-copy-to-clipboard"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+
 const FormPortal = (props) => {
+  const [copied, setCopied] = useState(false)
+
   if (!props.isOpened) {
     return
+  }
+
+  if (copied) {
+    const copyTextTimeout = setTimeout(() => {
+      setCopied(false)
+      clearTimeout(copyTextTimeout)
+    }, 2000)
   }
   return ReactDOM.createPortal(
     <div className="portal">
@@ -23,13 +37,47 @@ const FormPortal = (props) => {
             <h3>
               Registration went successfully.
               <br />
-              Please share this link with your Team, they must register through
-              it
+              Please share this link with your Team.
             </h3>
-            <p className="py-4">{props.teamRegistrationLink}</p>
+            <div>
+              <input
+                type="text"
+                className="border-[1px] border-Color-Dark-Blue border-solid rounded w-full h-10 p-3"
+                disabled
+                value={props.teamRegistrationLink}
+              />
+            </div>
           </div>
         )}
-        <Button onClick={props.closePortal}>Close</Button>
+        <div className="flex justify-between mt-4">
+          {props.success && (
+            <div className="relative">
+              <CopyToClipboard
+                text={props.teamRegistrationLink}
+                onCopy={() => setCopied(true)}
+              >
+                <button
+                  className="active:scale-[0.98]"
+                  onClick={() => setCopied(true)}
+                >
+                  Copy link{" "}
+                </button>
+              </CopyToClipboard>
+              {copied && (
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className="text-Color-Cyan text-2xl ml-4 absolute top-1/2 translate-y-[-50%]"
+                />
+              )}
+            </div>
+          )}
+          <Button
+            className="bg-Color-Cyan text-white px-4 py-2 rounded-lg"
+            onClick={props.closePortal}
+          >
+            Close
+          </Button>
+        </div>
       </div>
     </div>,
     document.getElementById("form-portal")
