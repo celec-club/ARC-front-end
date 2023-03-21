@@ -61,12 +61,12 @@ const Header = () => {
             <li>
               <NavBarHashLink to="/#about">About</NavBarHashLink>
             </li>
-            <li>
+            {/* <li>
               <NavBarHashLink to="/#partners">Partners</NavBarHashLink>
             </li>
             <li>
               <NavBarHashLink to="/#work-book">WorkBook</NavBarHashLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/register"

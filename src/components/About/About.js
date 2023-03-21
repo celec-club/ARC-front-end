@@ -13,18 +13,16 @@ const About = () => {
           Goals of the competition
         </h2>
         <p className="text-white text-center max-w-4xl mx-auto">
-          Aujourd'hui, la robotique touche un large secteur d'activités
-          économiques allant des industries automobile et électronique à
-          l'alimentation, le recyclage, la logistique, etc. L’objectif principal
-          de l’implication des robots est d’effectuer des tâches mieux que les
-          humains, en particulier lorsqu'il s'agit des tâches répétitives et
-          détaillées, dans ce cas-là, une implication de la technologie de
-          l’intelligence artificielle est nécessaire. Le déploiement de l'IA
-          dans les opérations de fabrication et de services garantira
-          l'exactitude et la précision du processus et évitera les retards avec
-          un changement plus rapide des opérations si nécessaire. L'utilisation
-          de l'IA dans l'usine peut aider à augmenter la productivité et la
-          qualité tout en garantissant un cadre de sécurité solide.
+          Today, robotics affects a wide range of economic activities from
+          automotive and electronic industries to food, recycling, logistics,
+          etc. The main objective of the involvement of robots is to perform
+          tasks better than humans, especially when it comes to repetitive and
+          detailed tasks, in which case the involvement of artificial
+          intelligence technology is necessary. The deployment of AI in
+          manufacturing and service operations will ensure accuracy and
+          precision of the process and avoid delays with faster changeover of
+          operations when necessary. Using AI in the factory can help increase
+          productivity and quality while ensuring a strong safety framework.
         </p>
       </section>
       <section id="about">
@@ -64,8 +62,8 @@ const About = () => {
             where, the qualifiers of the first round will fight to win the 1st
             title of "Algerian Robot Cup 2023" whose theme is the development of
             an industrial plant and that, by integrating new technologies such
-            as : artificial intelligence, wireless communication protocols, new
-            mechanisms ... etc.
+            as artificial intelligence, wireless communication protocols, new
+            mechanisms...etc.
           </p>
         </div>
       </section>
