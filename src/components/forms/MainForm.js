@@ -80,6 +80,7 @@ const MainForm = (props) => {
   const [showPortal, setShowPortal] = useState(false)
   const [formIsNotValid, setFormIsNotValid] = useState(false)
   const [successRequest, setSuccessRequest] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const closePortalHandler = () => {
     setShowPortal(false)
@@ -98,7 +99,6 @@ const MainForm = (props) => {
           setApiInscriptionUrl(
             `http://api.celec-club.com/api/arc/registration?team_code=${registerId}`
           )
-          console.log(response.data)
         })
         .catch((error) => {
           setIsExistingTeam(false)
@@ -120,6 +120,7 @@ const MainForm = (props) => {
 
   const submitFormHandler = (values, { resetForm }) => {
     errorMessage = ""
+    setIsSubmitting(true)
 
     function submitInscription(memberValues) {
       if (isNewTeam) {
@@ -139,10 +140,6 @@ const MainForm = (props) => {
       formData.append("linkedIn_github", memberValues.linkedIn_github)
       formData.append("password", memberValues.password)
 
-      for (const value of formData.values()) {
-        console.log(value)
-      }
-
       axios
         .post(apiInscriptionUrl, formData)
         .then(function (response) {
@@ -150,21 +147,24 @@ const MainForm = (props) => {
           setShowPortal(true)
           resetForm({ values: "" })
           setTeamRegistrationId(response.data)
+          setIsSubmitting(false)
         })
         .catch(function (error) {
           if (error.response.status === 422) {
             const data = error.response.data
             const errors = data.errors
             for (const [key, value] of Object.entries(errors)) {
-              errorMessage += `${key}: ${value}`
+              errorMessage += `* ${key}: ${value} `
               errorMessage += "\n"
             }
             // alert(errorMessage)
-            setFormIsNotValid(true)
+            setSuccessRequest(false)
             setShowPortal(true)
+            setIsSubmitting(false)
           } else {
             // errorMessage = "Server error please try again"
             alert("Server error please try again")
+            setIsSubmitting(false)
           }
         })
     }
@@ -177,16 +177,14 @@ const MainForm = (props) => {
 
   return (
     <Container className="my-14">
-      {isNewTeam && (
-        <FormPortal
-          isOpened={showPortal}
-          formValidity={formIsNotValid}
-          errorMessage={errorMessage}
-          success={successRequest}
-          teamRegistrationLink={`http://arc.celec-club.com/register/${teamRegistrationId.team_code}`}
-          closePortal={closePortalHandler}
-        />
-      )}
+      <FormPortal
+        isOpened={showPortal}
+        formValidity={formIsNotValid}
+        errorMessage={errorMessage}
+        success={successRequest}
+        teamRegistrationLink={`http://arc.celec-club.com/register/${teamRegistrationId.team_code}`}
+        closePortal={closePortalHandler}
+      />
       {isNewTeam && (
         <div>
           <div className="flex items-center justify-center">
@@ -354,8 +352,8 @@ const MainForm = (props) => {
                 // }
               >
                 Submit
-                {props.isSubmitting && loader}
-                {successRequest && (
+                {isSubmitting && loader}
+                {successRequest && !isSubmitting && (
                   <FontAwesomeIcon
                     icon={faCheckCircle}
                     className="text-white text-lg ml-4"

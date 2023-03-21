@@ -25,7 +25,7 @@ const FormPortal = (props) => {
     <div className="portal">
       <div className="fixed top-0 right-0 bottom-0 left-0 z-10 bg-[rgba(0,0,0,.7)]"></div>
       <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[500px] ph:w-[300px] z-20 bg-white p-5 rounded-lg ">
-        {props.formValidity && (
+        {!props.success && (
           <div className="error-pup-up relative">
             <h3>Please update those information :</h3>
             <p>{props.errorMessage}</p>
