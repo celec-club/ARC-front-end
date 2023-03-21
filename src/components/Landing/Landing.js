@@ -61,9 +61,9 @@ const Landing = () => {
             Competition
           </h1>
           <p className="text-gray-200">
-            Le club CELEC de l'université des sciences et technogies Houari
-            Boumediene, organise une compétition nationale exceptionnel de
-            robotique sous le nom "Algerian Robot Cup".
+            CELEC club of the University of Science and Technology Houari
+            Boumediene, organizes an exceptional national competition of
+            robotics under the name "Algerian Robot Cup".
           </p>
         </div>
         <div>
