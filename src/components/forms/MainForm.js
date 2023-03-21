@@ -225,7 +225,7 @@ const MainForm = (props) => {
                 <option value="">Please select your region</option>
                 <option value="Algiers">Algiers</option>
                 <option value="Oran">Oran</option>
-                <option value="Constantine">Constantine</option>
+                <option value="Batna">Batna</option>
                 <option value="Ghardaïa">Ghardaïa</option>
               </Select>
               <Input
