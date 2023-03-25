@@ -5,7 +5,7 @@ export const formSchema = yup.object().shape({
 
   wilaya: yup
     .string()
-    .oneOf(["Algiers", "Oran", "Constantine", "Ghardaïa"], "Invalid wilaya")
+    .oneOf(["Algiers", "Oran", "Batna", "Ghardaïa"], "Invalid wilaya")
     .required("Required"),
 
   fullname: yup.string().required(),
